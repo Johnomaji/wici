@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WICI demo
 
-## Getting Started
+Two parts, both UI-only with illustrative data. `/` lets you pick one.
 
-First, run the development server:
+- **`/pitch`**: the Pilot Console walkthrough for the STS@10 pitch (below).
+- **`/login` → `/app`**: a clickable operations app to play with: dashboard, generators (list and add form), site audit, collections, inventory (weigh-in form), marketplace and Ask WICI. Forms work but nothing is saved; a reload resets it.
+
+The site audit and Ask WICI come from the founder's HTML prototype; both are scripted here.
+
+## Pitch walkthrough
+
+It follows one generator, Harbour View Hotel, through the six functions (See → Separate → Move → Aggregate → Match → Measure) and ends on the cluster impact dashboard.
+
+**All data is illustrative.** The "AI" is scripted, and nothing calls out to the internet, so the demo works offline at the venue.
+
+## Run it
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install          # once
+npm run build        # once, before the event
+npm start            # then open http://localhost:3000/pitch
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Run it with `npm start` on the day. `npm run dev` also works, but it is slower on the first click of each screen.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Presenting
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Key | Action |
+| --- | --- |
+| → / PageDown | Next screen (works with a presentation clicker) |
+| ← / PageUp | Previous screen |
+| 0–6 | Jump to a screen (0 = overview) |
+| D | Jump to the dashboard |
+| R | Reset everything to the start |
 
-## Learn More
+You can also open a screen directly with `/pitch?step=6`.
 
-To learn more about Next.js, take a look at the following resources:
+Each screen has one action to click live:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **See**: *Run AI classification*. Wait for the flagged item, then click *PET (crushed bottle)*.
+2. **Separate**: tick the checklist items.
+3. **Move**: *Simulate breakdown*. The run is rerouted to a backup partner.
+4. **Aggregate**: *Record weigh-in*. The PET batch becomes sale-ready.
+5. **Match**: *Match to offtakers*, then *Send offer*.
+6. **Measure**: hover over the charts.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Where to edit
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+All numbers, names and copy are in `src/lib/data.ts`. Pitch screens are in `src/components/steps/`; app screens are in `src/app/app/`.
